@@ -1,6 +1,7 @@
 package org.launchcode.techjobs.persistent.controllers;
 
 import org.launchcode.techjobs.persistent.models.Employer;
+import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,10 +38,10 @@ public class EmployerController {
     @GetMapping("view/{employerId}")
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
-       // Optional optEmployer = null;
-       // if (optEmployer.isPresent()) {
-          if (employerId > 0 ) {
-            Optional<Employer> employer = employerRepository.findById(employerId);
+        Optional optEmployer = employerRepository.findById(employerId);
+       if (optEmployer.isPresent()) {
+
+           Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employer", employer);
 
             return "employers/view";
